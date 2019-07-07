@@ -1,0 +1,9 @@
+server.port: 8080
+
+csv:
+  dateFormat: yyyy-MM-dd
+  header:
+    speaker: Redner
+    topic: Thema
+    date: Datum
+    words: Wörter
