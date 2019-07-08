@@ -6,7 +6,7 @@
 
     <groupId>politicalspeeches</groupId>
     <artifactId>politicalspeeches</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -57,12 +57,14 @@
         <java.version>1.8</java.version>
     </properties>
 
-
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>application.Application</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
