@@ -1,6 +1,10 @@
 package controllers;
 
 import exceptions.CSVParsingException;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import model.Evaluation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,18 +28,19 @@ public class SpeechEvaluation {
         this.evaluationService = evaluationService;
     }
 
-
-    /**
-     * Returns
-     * 1. which politician gave the most peeches in the year 2013
-     * 2. which politician gave the most speaches about security
-     * 3. which politician spoke the least words
-     *
-     * @param url array of urls (e.g. url=url&url=url2) to csv files containing political speeches
-     * @return json Object: Evaluation containing: mostSpeeches,mostSecurity,leastWordy
-     */
     @GetMapping(value = "/evaluate")
-    public ResponseEntity<Object> getEvaluation(@RequestParam List<String> url) {
+    @ApiOperation(value = "evaluates political speeches ",
+            notes = "Returns<br/>" +
+                    "1. which politician gave the most speeches in the year 2013 <br/>" +
+                    "2. which politician gave the most speeches about security <br/>" +
+                    "3. which politician spoke the least words",
+            response = Evaluation.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Bad request - Problem with retrieving or parsing of csv files"),
+            @ApiResponse(code = 500, message = "Internal Server error") })
+    public ResponseEntity<Object> getEvaluation(
+            @ApiParam(value = "array of urls (e.g. url=url&url=url2) to csv files containing political speeches", required = true)
+            @RequestParam List<String> url) {
         try {
             Evaluation evaluation = evaluationService.evaluate(url);
             return new ResponseEntity<>(evaluation, HttpStatus.OK);
