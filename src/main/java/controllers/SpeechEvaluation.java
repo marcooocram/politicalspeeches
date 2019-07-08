@@ -29,7 +29,7 @@ public class SpeechEvaluation {
     }
 
     @GetMapping(value = "/evaluate")
-    @ApiOperation(value = "evaluates political speeches ",
+    @ApiOperation(value = "evaluates political speeches",
             notes = "Returns<br/>" +
                     "1. which politician gave the most speeches in the year 2013 <br/>" +
                     "2. which politician gave the most speeches about security <br/>" +
@@ -39,7 +39,9 @@ public class SpeechEvaluation {
             @ApiResponse(code = 400, message = "Bad request - Problem with retrieving or parsing of csv files"),
             @ApiResponse(code = 500, message = "Internal Server error") })
     public ResponseEntity<Object> getEvaluation(
-            @ApiParam(value = "array of urls (e.g. url=url&url=url2) to csv files containing political speeches", required = true)
+            @ApiParam(
+                    value = "array of urls (e.g. url=url&url=url2) to csv files containing political speeches <br/> " +
+                            "example: https://dev-stefan.s3.amazonaws.com/politics.csv ", required = true)
             @RequestParam List<String> url) {
         try {
             Evaluation evaluation = evaluationService.evaluate(url);
